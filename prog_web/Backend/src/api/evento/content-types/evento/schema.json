@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "eventos",
+  "info": {
+    "singularName": "evento",
+    "pluralName": "eventos",
+    "displayName": "Evento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "data": {
+      "type": "date"
+    },
+    "hora": {
+      "type": "time"
+    },
+    "local": {
+      "type": "string"
+    },
+    "vagas_totais": {
+      "type": "integer"
+    },
+    "vagas_ocupadas": {
+      "type": "integer",
+      "default": 0
+    },
+    "statu_s": {
+      "type": "enumeration",
+      "enum": [
+        "ativo",
+        "cancelado",
+        "concluido"
+      ]
+    }
+  }
+}

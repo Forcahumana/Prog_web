@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inscricaos",
+  "info": {
+    "singularName": "inscricao",
+    "pluralName": "inscricaos",
+    "displayName": "inscricao"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome_cliente": {
+      "type": "string",
+      "required": true
+    },
+    "email_cliente": {
+      "type": "email",
+      "required": true
+    },
+    "statu_s": {
+      "type": "enumeration",
+      "enum": [
+        "pendente",
+        "confirmada",
+        "cancelada"
+      ]
+    },
+    "evento": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::evento.evento"
+    }
+  }
+}
