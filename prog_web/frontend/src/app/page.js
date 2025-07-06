@@ -48,22 +48,35 @@ export default function Home() {
       {/* Header */}
         <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 pb-20 rounded-b-3xl">
           <header className="max-w-6xl mx-auto flex justify-between items-center py-8 px-6">
-            <span className="text-white font-bold text-2xl tracking-wide">NextEvent</span>
+            <div className="flex items-center gap-3">
+              <img
+                src="/assets/DataMarcadaLogo.png"
+                alt="DataMarcadaLogo"
+                className="h-10 w-10 object-contain"
+              />
+              <span className="text-white font-bold text-2xl tracking-wide">DataMarcada</span>
+            </div>
             <nav className="flex items-center gap-6">
-          <a href="/" className="text-white font-medium hover:underline">Home</a>
-          <a href="/contactos" className="text-white font-medium hover:underline">Contactos</a>
-          <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
+              <a href="#" className="text-white font-medium hover:underline">Home</a>
+              <a href="/contactos" className="text-white font-medium hover:underline">Contactos</a>
+              <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
             </nav>
           </header>
           {/* Welcome Section */}
-        <section className="text-center mt-12">
-          <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
-            NextEvent
-          </h1>
-          <p className="text-indigo-100 text-lg mb-8">
-            Inscreva-se nos nossos eventos, cursos, workshops e mais.
-          </p>
-        </section>
+        <section className="text-center mt-12 flex flex-col items-center">
+  <img
+    src="/assets/DataMarcadaLogo.png"
+    alt="DataMarcada Logo"
+    className="h-24 w-24 object-contain mb-6"
+  />
+  <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
+    DataMarcada
+  </h1>
+  <p className="text-indigo-100 text-lg mb-8">
+    Inscreva-se nos nossos eventos, cursos, workshops e mais.
+  </p>
+</section>
+
       </div>
       {/* Popular Events Section */}
       <section className="max-w-6xl mx-auto mt-16 px-6">
