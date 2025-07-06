@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "NextEvent"
+  title: "DataMarcada"
 };
 
 export default function RootLayout({ children }) {

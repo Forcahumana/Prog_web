@@ -43,13 +43,20 @@ export default function Contactos() {
       {/* Header */}
       <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 pb-20 rounded-b-3xl">
         <header className="max-w-6xl mx-auto flex justify-between items-center py-8 px-6">
-          <span className="text-white font-bold text-2xl tracking-wide">NextEvent</span>
-          <nav className="flex items-center gap-6">
-            <a href="/" className="text-white font-medium hover:underline">Home</a>
-            <a href="/contactos" className="text-white font-medium underline">Contactos</a>
-            <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
-          </nav>
-        </header>
+            <div className="flex items-center gap-3">
+              <img
+                src="/assets/DataMarcadaLogo.png"
+                alt="DataMarcadaLogo"
+                className="h-10 w-10 object-contain"
+              />
+              <span className="text-white font-bold text-2xl tracking-wide">DataMarcada</span>
+            </div>
+            <nav className="flex items-center gap-6">
+              <a href="/" className="text-white font-medium hover:underline">Home</a>
+              <a href="#" className="text-white font-medium hover:underline">Contactos</a>
+              <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
+            </nav>
+          </header>
         {/* Welcome Section */}
         <section className="text-center mt-12">
           <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
