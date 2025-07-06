@@ -20,24 +20,42 @@ export default function Home() {
     };
   }, []);
 
+  const handleJoinEvent = async () => {
+    const nome = prompt("Qual é o seu nome?");
+    if (!nome) return;
+    const email = prompt("Qual é o seu email?");
+    if (!email) return;
+    if (eventos.length === 0) {
+      alert("Nenhum evento disponível.");
+      return;
+    }
+    const eventoNomes = eventos.map((ev, idx) =>
+      `${idx + 1}: ${ev.nome || ev.attributes?.name || "Sem nome"}`
+    ).join('\n');
+    const escolha = prompt(`Digite o número do evento que deseja participar:\n${eventoNomes}`);
+    const idx = parseInt(escolha, 10) - 1;
+    if (isNaN(idx) || idx < 0 || idx >= eventos.length) {
+      alert("Evento inválido.");
+      return;
+    }
+    const evento = eventos[idx];
+    alert(`Inscrição enviada!\nNome: ${nome}\nEmail: ${email}\nEvento: ${evento.nome || evento.attributes?.name}`);
+    // Aqui você pode enviar os dados para o backend se desejar
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 font-sans">
       {/* Header */}
-      <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 pb-20 rounded-b-3xl">
-        <header className="max-w-6xl mx-auto flex justify-between items-center py-8 px-6">
-          <span className="text-white font-bold text-2xl tracking-wide">NextEvent</span>
-          <nav className="flex items-center gap-6">
-            <a href="/" className="text-white font-medium hover:underline">Home</a>
-            <a href="#categorias" className="text-white font-medium hover:underline">Contactos</a>
-            <a
-              href="/teste"
-              className="bg-cyan-300 text-indigo-700 rounded-full px-6 py-2 font-bold shadow hover:bg-cyan-200 transition"
-            >
-              Administração
-            </a>
-          </nav>
-        </header>
-        {/* Welcome Section */}
+        <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 pb-20 rounded-b-3xl">
+          <header className="max-w-6xl mx-auto flex justify-between items-center py-8 px-6">
+            <span className="text-white font-bold text-2xl tracking-wide">NextEvent</span>
+            <nav className="flex items-center gap-6">
+          <a href="/" className="text-white font-medium hover:underline">Home</a>
+          <a href="/contactos" className="text-white font-medium hover:underline">Contactos</a>
+          <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
+            </nav>
+          </header>
+          {/* Welcome Section */}
         <section className="text-center mt-12">
           <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
             NextEvent
@@ -49,9 +67,17 @@ export default function Home() {
       </div>
       {/* Popular Events Section */}
       <section className="max-w-6xl mx-auto mt-16 px-6">
-        <h2 className="text-center text-3xl font-bold text-gray-800 mb-10">
-          Eventos A Decorrerem
-        </h2>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-6">
+          <h2 className="text-3xl font-bold text-gray-800 text-center md:text-left">
+            Eventos A Decorrerem
+          </h2>
+          <button
+            className="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition text-lg shadow"
+            onClick={handleJoinEvent}
+          >
+            Inscrever-se em um Evento
+          </button>
+        </div>
         <div className="flex flex-wrap gap-8 justify-center">
           {eventos.length > 0 ? (
             eventos.map((evento) => (
