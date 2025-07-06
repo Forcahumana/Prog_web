@@ -64,19 +64,18 @@ export default function Home() {
           </header>
           {/* Welcome Section */}
         <section className="text-center mt-12 flex flex-col items-center">
-  <img
-    src="/assets/DataMarcadaLogo.png"
-    alt="DataMarcada Logo"
-    className="h-24 w-24 object-contain mb-6"
-  />
-  <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
-    DataMarcada
-  </h1>
-  <p className="text-indigo-100 text-lg mb-8">
-    Inscreva-se nos nossos eventos, cursos, workshops e mais.
-  </p>
-</section>
-
+        <img
+          src="/assets/DataMarcadaLogo.png"
+          alt="DataMarcada Logo"
+          className="h-24 w-24 object-contain mb-6"
+         />
+         <h1 className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">
+            DataMarcada
+         </h1>
+        <p className="text-indigo-100 text-lg mb-8">
+          Inscreva-se nos nossos eventos, cursos, workshops e mais.
+        </p>
+      </section>
       </div>
       {/* Popular Events Section */}
       <section className="max-w-6xl mx-auto mt-16 px-6">
