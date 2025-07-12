@@ -59,7 +59,7 @@ export default function Home() {
             <nav className="flex items-center gap-6">
               <a href="#" className="text-white font-medium hover:underline">Home</a>
               <a href="/contactos" className="text-white font-medium hover:underline">Contactos</a>
-              <a href="/teste" className="text-white font-medium hover:underline">Administração</a>
+              <a href="/admin" className="text-white font-medium hover:underline">Administração</a>
             </nav>
           </header>
           {/* Welcome Section */}
