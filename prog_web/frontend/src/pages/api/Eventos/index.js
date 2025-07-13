@@ -1,3 +1,5 @@
+// endpoint para listar e criar eventos
+
 export default async function handler(req, res) {
   const jwt = req.headers.authorization?.split(' ')[1];
   
