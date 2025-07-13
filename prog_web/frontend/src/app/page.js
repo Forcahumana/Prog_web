@@ -23,24 +23,102 @@ export default function Home() {
   const handleJoinEvent = async () => {
     const nome = prompt("Qual é o seu nome?");
     if (!nome) return;
-    const email = prompt("Qual é o seu email?");
+
+    let email = prompt("Qual é o seu email?");
     if (!email) return;
-    if (eventos.length === 0) {
-      alert("Nenhum evento disponível.");
+
+    // Verificação mais robusta de email usando regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Por favor, insira um email válido.");
       return;
     }
-    const eventoNomes = eventos.map((ev, idx) =>
-      `${idx + 1}: ${ev.nome || ev.attributes?.name || "Sem nome"}`
+
+    // Filtra eventos que ainda têm vagas
+    const eventosDisponiveis = eventos.filter(ev => {
+      const vagasTotais = ev.vagas_totais ?? ev.attributes?.vagas_totais ?? 0;
+      const vagasOcupadas = ev.vagas_ocupadas ?? ev.attributes?.vagas_ocupadas ?? 0;
+      return vagasOcupadas < vagasTotais;
+    });
+
+    if (eventosDisponiveis.length === 0) {
+      alert("Nenhum evento disponível com vagas.");
+      return;
+    }
+
+    const eventoNomes = eventosDisponiveis.map((ev, idx) =>
+      `${idx + 1}: ${ev.attributes?.name || ev.nome || "Sem nome"}`
     ).join('\n');
+
     const escolha = prompt(`Digite o número do evento que deseja participar:\n${eventoNomes}`);
     const idx = parseInt(escolha, 10) - 1;
-    if (isNaN(idx) || idx < 0 || idx >= eventos.length) {
+
+    if (isNaN(idx) || idx < 0 || idx >= eventosDisponiveis.length) {
       alert("Evento inválido.");
       return;
     }
-    const evento = eventos[idx];
-    alert(`Inscrição enviada!\nNome: ${nome}\nEmail: ${email}\nEvento: ${evento.nome || evento.attributes?.name}`);
-    // Aqui você pode enviar os dados para o backend se desejar
+
+    const evento = eventosDisponiveis[idx];
+    const eventoNome = evento.attributes?.name || evento.nome;
+
+    // Prepare data for Strapi
+    const postData = {
+      data: {
+        nome_cliente: nome,
+        email_cliente: email,
+        evento: evento.id,
+        statu_s: 'pendente'
+      }
+    };
+
+    try {
+      // POST inscrição
+      const response = await fetch('http://localhost:1337/api/inscricaos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(`Ocorreu um erro ao enviar a sua inscrição. (Status: ${response.status})`);
+      }
+
+      alert(`Inscrição para o evento "${eventoNome}" realizada com sucesso!`);
+    } catch (error) {
+      console.error('Failed to submit subscription:', error);
+      alert(error.message || "Não foi possível conectar ao servidor. Tente novamente mais tarde.");
+    }
+
+    // Atualiza vagas_ocupadas localmente
+    setEventos(prevEventos =>
+      prevEventos.map(ev =>
+        ev.id === evento.id
+          ? {
+              ...ev,
+              vagas_ocupadas:
+                (ev.vagas_ocupadas ?? ev.attributes?.vagas_ocupadas ?? 0) + 1
+            }
+          : ev
+      )
+    );
+
+    // Atualiza vagas_ocupadas no backend Strapi (na tabela de eventos)
+    const vagasAtualizadas = (evento.vagas_ocupadas ?? evento.attributes?.vagas_ocupadas ?? 0) + 1;
+    await fetch(`http://localhost:1337/api/eventos/${evento.id}`, {
+      method: 'PUT', // ou 'PATCH' dependendo do seu Strapi
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          vagas_ocupadas: vagasAtualizadas
+        }
+      })
+    });
   };
 
   return (

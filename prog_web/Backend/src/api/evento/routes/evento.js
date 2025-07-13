@@ -1,9 +1,31 @@
-'use strict';
+// src/api/evento/routes/evento.js
 
-/**
- * evento router
- */
-
-const { createCoreRouter } = require('@strapi/strapi').factories;
-
-module.exports = createCoreRouter('api::evento.evento');
+module.exports = {
+  routes: [
+    {
+      method: 'GET',
+      path: '/eventos',
+      handler: 'evento.find',
+    },
+    {
+      method: 'GET',
+      path: '/eventos/:id',
+      handler: 'evento.findOne',
+    },
+    {
+      method: 'POST',
+      path: '/eventos',
+      handler: 'evento.create',
+    },
+    {
+      method: 'PUT',
+      path: '/eventos/:id',
+      handler: 'evento.update',
+    },
+    {
+      method: 'DELETE',
+      path: '/eventos/:id',
+      handler: 'evento.delete',
+    },
+  ],
+};
